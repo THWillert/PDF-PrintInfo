@@ -18,6 +18,16 @@ Windows:
 
 Die einzelnen Menüpunkte können am Anfang des Scripts angepaßt werden (siehe Quellcode).
 
+Beispiele für *cExec*
+
+``` JavaScript
+// Dateiname, Datum, Uhrzeit LF Seiten
+SetFooter("%FileNameNoExt% | %Date% %Time%%n%Seite: %Page% / %Pages%")
+
+// Dateiname - oben - grün - groß
+SetFooter("%FileName%"); MoveTo("top",15); ChangeColor([ "RGB", 0,0.7,0 ]); ChangeSize(12)
+```
+
 Platzhalter:
 <dl>
  <dt>%FileName%</dt>
@@ -53,9 +63,6 @@ Platzhalter:
  <dt>%t%</dt>
  <dd>Tabulator</dd>
 </dl>
-
-## Diskussion / Vorschläge
-
 
 ## ToDo
 
