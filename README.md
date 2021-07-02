@@ -1,10 +1,80 @@
 # PDF-PrintInfo
 
+## Übersicht
+
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/THWillert/PDF-PrintInfo.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/THWillert/PDF-PrintInfo/alerts/) [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/THWillert/PDF-PrintInfo.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/THWillert/PDF-PrintInfo/context:javascript)
 
 Fügt Seitenzahlen, Dateinamen usw. auf allen Seiten einer PDF-Datei ein.
 
-___
+
+## Voraussetzungen
+Getestet mit Adobe Reader DC
+
+## Installation
+Windows:
+%appdata%\Roaming\Adobe\Acrobat\Privileged\DC\JavaScripts
+
+### Anpassungen
+
+Die einzelnen Menüpunkte können am Anfang des Scripts angepaßt werden (siehe Quellcode).
+
+Platzhalter:
+<dl>
+ <dt>%FileName%</dt>
+ <dd>Dateiname</dd>
+ 
+ <dt>%FileNameNoExt%</dt>
+ <dd>Dateiname ohne Suffix</dd>
+ 
+ <dt>%FullPath%</dt>
+ <dd>Dateifad mit Datenamen</dd>
+ 
+ <dt>%Date%</dt>
+ <dd>Aktuelles Datum</dd>
+ 
+ <dt>%Time%</dt>
+ <dd>Aktuelle Uhrzeit</dd>
+ 
+ <dt>%CreationDate%</dt>
+ <dd>Erstellungsdatum</dd>
+ 
+ <dt>%CreationTime%</dt>
+ <dd>Erstellungszeit</dd>
+ 
+  <dt>%Page%</dt>
+ <dd>Aktuelle Seite</dd>
+ 
+  <dt>%Pages%</dt>
+ <dd>Gesamtseitenzahl</dd>
+ 
+  <dt>%n%</dt>
+ <dd>Zeilenumbruch</dd>
+ 
+ <dt>%t%</dt>
+ <dd>Tabulator</dd>
+</dl>
+
+## Diskussion / Vorschläge
+
+
+## ToDo
+
+Die Reihenfolge entspricht keiner Priorität.
+
+ - [ ] Dokumentation
+ - [ ] Dialog für die Einstellungen.
+
+ ## Author
+ Thorsten Willert
+
+ [Homepage](https://www.thorsten-willert.de/)
+ 
+ ___
  Basierend auf PrintFooter v2.2 von Thorsten Eggeling;
  
  https:www.myria.de/computer/599-adobe-reader-dateinamen-auf-jede-seite-drucken
+
+ ## Lizenz
+ Das ganze steht unter der [Apache 2.0](https://github.com/THWillert/PDF-PrintInfo/blob/master/LICENSE) Lizenz.
+.
+
