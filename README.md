@@ -4,6 +4,10 @@
 
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/THWillert/PDF-PrintInfo.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/THWillert/PDF-PrintInfo/alerts/) [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/THWillert/PDF-PrintInfo.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/THWillert/PDF-PrintInfo/context:javascript)
 
+Script, das das Menü des Adobe Reader erweitert.
+
+![Willert_PDF-PrintInfo](https://user-images.githubusercontent.com/54273574/124302875-08738b00-db62-11eb-83fe-f2219e6158c7.png)
+
 Fügt Seitenzahlen, Dateinamen usw. auf allen Seiten einer PDF-Datei ein.
 
 
