@@ -1,6 +1,6 @@
  /*
  PrintInfo
- V3.0, 2021, Thorsten Willert
+ V3.0.1, 2021, Thorsten Willert
  * Code Optimierung
  * Fusszeile kann in Kopzeile umgewandelt werden
  * Fusszeile kann gedreht und an die Raender gesetzt werden
@@ -268,14 +268,11 @@ function SetFooter(sValue, sDateFormat = "dd.mm.yyyy", sTimeFormat = "HH:MM", iP
 function addTextField(myDoc, myTextValue, myPageNum, myPageWidth) {
     try {
         var fd = myDoc.addField('xftDate' + myPageNum + 1, 'text', myPageNum, [30, 15, myPageWidth - 30, 35])
-        fd.multiline = true // Zeilenumbruch erlauben, Seitenzahl zweite Zeile
+        fd.multiline = true // Zeilenumbruch erlauben
         fd.textSize = 6 // Font-Groesse
         fd.readonly = true // schreibgeschuetzt
         fd.alignment = 'center' // Ausrichtung zentriert
-        // fd.alignment="left"; //Ausrichtung links
-        // fd.alignment="right"; //Ausrichtung rechts
         // fd.fillColor = color.yellow; //Hintergundfarbe fuer das Textfeld
-        // fd.rotation = 90;
         fd.textColor = color.red // Textfarbe
         fd.value = myTextValue
         return fd
@@ -353,17 +350,12 @@ function MoveTo(sPos, iOffset) {
 //=============================================================================
 function ReplacePlaceHolders(sString, sDateFormat, sTimeFormat, iPages) {
 
-    // var pathArray = this.path.split("/");
-    // var FileNM = this.path //Dateiname mit Pfad plattformunabhaengiges Format
-    // var FileNM = PathToWinPath(pathArray); //Pfad im Windows-Format
     const FileNM = this.documentFileName // nur Dateiname
-    const FileNMNoExt = FileNM.substr(0, FileNM.lastIndexOf('.')) // nur Dateiname ohne Erweiterung (ohne .PDF)
+    const FileNMNoExt = FileNM.substr(0, FileNM.lastIndexOf('.')) // Dateiname ohne Suffix ( .PDF)
     const AcDate = new Date()
-    //const AcDateFormat = 'dd.mm.yyyy HH:MM'
     const CrDate = this.creationDate
-    //const CrDateFormat = 'dd.mm.yyyy HH:MM'
-    // var AcDateFormat = "yyyy/mm/dd"
     const pathArray = this.path.split('/')
+    // var FileNM = this.path //Dateiname mit Pfad plattformunabhaengiges Format
     const sFilePath = PathToWinPath(pathArray) // Pfad im Windows-Format
 
     var res = sString.replace(/%FileName%/g, FileNM );
