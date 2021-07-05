@@ -1,11 +1,14 @@
- /*
+/*
  PrintInfo
+ V3.0.2, 2021, Thorsten Willert
+ * Code Optimierung
+
  V3.0.1, 2021, Thorsten Willert
  * Code Optimierung
- * Fusszeile kann in Kopzeile umgewandelt werden
- * Fusszeile kann gedreht und an die Raender gesetzt werden
+ * Fußzeile kann in Kopzeile umgewandelt werden
+ * Fußzeile kann gedreht und an die Ränder gesetzt werden
  * Farbauswahl
- * Auswahl Schriftgroesse
+ * Auswahl Schriftgröße
  * Auswahl Ausrichtung
 
  Installation:
@@ -18,7 +21,7 @@
 // Menue =======================================================================
 app.addSubMenu({
     cName: 'Footer',
-    cUser: 'Fusszeile und Kopfzeilen',
+    cUser: 'Fußzeile und Kopfzeilen',
     cParent: 'File',
     nPos: 20
 })
@@ -48,11 +51,11 @@ Platzhalter:
     %t%
         Tab
 
-    Gross- und Kleinschreibung beachten!
+    Groß- und Kleinschreibung beachten!
 
     SetFooter( Text , Datums-Format {dd.mm.yyyy], Zeit-Format [HH:MM], Seite [-1 = alle] -2 = letzte Seite)
 
-    * Eine Kombination aus den Befehlen ist in jedem Menuepunkt moeglich z. B.:
+    * Eine Kombination aus den Befehlen ist in jedem Menüpunkt möglich z. B.:
     'SetFooter("%FileName%"); MoveTo("top",15); ChangeColor([ "RGB", 0,0.7,0 ]); ChangeSize(12)'
 */
 
@@ -72,7 +75,7 @@ app.addMenuItem({
     cExec: 'SetFooter("%FileNameNoExt% | Erstellt: %CreationDate% %CreationTime% | Datum: %Date% %Time% | Seite: %Page% / %Pages%")'
 })
 app.addMenuItem({
-    cName: 'Dateiname - oben - gruen - gross',
+    cName: 'Dateiname - oben - grün - groß',
     cParent: 'Footer',
     cExec: 'SetFooter("%FileName%"); MoveTo("top",15); ChangeColor([ "RGB", 0,0.7,0 ]); ChangeSize(12)'
 })
@@ -103,26 +106,26 @@ app.addSubMenu({
     cParent: 'Footer',
     nPos: 8
 })
-    app.addMenuItem({
-        cName: 'Kopfzeile',
-        cParent: 'Position',
-        cExec: 'MoveTo("top",15)'
-    })
-    app.addMenuItem({
-        cName: 'Fusszeile',
-        cParent: 'Position',
-        cExec: 'MoveTo("bottom",0)'
-    })
-    app.addMenuItem({
-        cName: '90° links',
-        cParent: 'Position',
-        cExec: 'MoveTo("left", 40)'
-    })
-    app.addMenuItem({
-        cName: '90° rechts',
-        cParent: 'Position',
-        cExec: 'MoveTo("right", 15)'
-    })
+app.addMenuItem({
+    cName: 'Kopfzeile',
+    cParent: 'Position',
+    cExec: 'MoveTo("top",15)'
+})
+app.addMenuItem({
+    cName: 'Fußzeile',
+    cParent: 'Position',
+    cExec: 'MoveTo("bottom",0)'
+})
+app.addMenuItem({
+    cName: '90° links',
+    cParent: 'Position',
+    cExec: 'MoveTo("left", 40)'
+})
+app.addMenuItem({
+    cName: '90° rechts',
+    cParent: 'Position',
+    cExec: 'MoveTo("right", 15)'
+})
 // Menu: Text-align ------------------------------------------------------------
 app.addSubMenu({
     cName: 'Align',
@@ -130,21 +133,21 @@ app.addSubMenu({
     cParent: 'Footer',
     nPos: 9
 })
-    app.addMenuItem({
-        cName: 'Mitte',
-        cParent: 'Align',
-        cExec: 'ChangeAlign("center")'
-    })
-    app.addMenuItem({
-        cName: 'Links (unten)',
-        cParent: 'Align',
-        cExec: 'ChangeAlign("left")'
-    })
-    app.addMenuItem({
-        cName: 'Rechts (oben)',
-        cParent: 'Align',
-        cExec: 'ChangeAlign("right")'
-    })
+app.addMenuItem({
+    cName: 'Mitte',
+    cParent: 'Align',
+    cExec: 'ChangeAlign("center")'
+})
+app.addMenuItem({
+    cName: 'Links (unten)',
+    cParent: 'Align',
+    cExec: 'ChangeAlign("left")'
+})
+app.addMenuItem({
+    cName: 'Rechts (oben)',
+    cParent: 'Align',
+    cExec: 'ChangeAlign("right")'
+})
 // Menu: Font-color ------------------------------------------------------------
 app.addSubMenu({
     cName: 'Color',
@@ -152,59 +155,59 @@ app.addSubMenu({
     cParent: 'Footer',
     nPos: 10
 })
-    app.addMenuItem({
-        cName: 'Rot',
-        cParent: 'Color',
-        cExec: 'ChangeColor(color.red)'
-    })
-    app.addMenuItem({
-        cName: 'Blau',
-        cParent: 'Color',
-        cExec: 'ChangeColor(color.blue)'
-    })
-    app.addMenuItem({
-        cName: 'Gruen',
-        cParent: 'Color',
-        cExec: 'ChangeColor([ "RGB", 0,0.7,0 ])'
-    })
-    app.addMenuItem({
-        cName: 'Orange',
-        cParent: 'Color',
-        cExec: 'ChangeColor([ "RGB", 1, 0.7, 0 ])'
-    })
-    app.addMenuItem({
-        cName: 'Schwarz',
-        cParent: 'Color',
-        cExec: 'ChangeColor(color.black)'
-    })
-    // Fuer dunklen Hintergrund
-    app.addMenuItem({
-        cName: 'Weiss',
-        cParent: 'Color',
-        cExec: 'ChangeColor(color.white)'
-    })
+app.addMenuItem({
+    cName: 'Rot',
+    cParent: 'Color',
+    cExec: 'ChangeColor(color.red)'
+})
+app.addMenuItem({
+    cName: 'Blau',
+    cParent: 'Color',
+    cExec: 'ChangeColor(color.blue)'
+})
+app.addMenuItem({
+    cName: 'Grün',
+    cParent: 'Color',
+    cExec: 'ChangeColor([ "RGB", 0,0.7,0 ])'
+})
+app.addMenuItem({
+    cName: 'Orange',
+    cParent: 'Color',
+    cExec: 'ChangeColor([ "RGB", 1, 0.7, 0 ])'
+})
+app.addMenuItem({
+    cName: 'Schwarz',
+    cParent: 'Color',
+    cExec: 'ChangeColor(color.black)'
+})
+// Für dunklen Hintergrund
+app.addMenuItem({
+    cName: 'Weiß',
+    cParent: 'Color',
+    cExec: 'ChangeColor(color.white)'
+})
 // Menu: Font-size -------------------------------------------------------------
 app.addSubMenu({
     cName: 'Size',
-    cUser: 'Schriftgroesse',
+    cUser: 'Schriftgröße',
     cParent: 'Footer',
     nPos: 11
 })
-    app.addMenuItem({
-        cName: '6',
-        cParent: 'Size',
-        cExec: 'ChangeSize(6)'
-    })
-    app.addMenuItem({
-        cName: '8',
-        cParent: 'Size',
-        cExec: 'ChangeSize(8)'
-    })
-    app.addMenuItem({
-        cName: '10',
-        cParent: 'Size',
-        cExec: 'ChangeSize(10)'
-    })
+app.addMenuItem({
+    cName: '6',
+    cParent: 'Size',
+    cExec: 'ChangeSize(6)'
+})
+app.addMenuItem({
+    cName: '8',
+    cParent: 'Size',
+    cExec: 'ChangeSize(8)'
+})
+app.addMenuItem({
+    cName: '10',
+    cParent: 'Size',
+    cExec: 'ChangeSize(10)'
+})
 app.addMenuItem({
     cName: '_______________________________________________________',
     cParent: 'Footer',
@@ -225,7 +228,7 @@ function PathToWinPath(pathArray) {
         // nur ein Zeichen? Also (hoffentlich) lokales Laufwerk
         WinPath = pathArray[1] + ':'
     } else {
-        // fuer Netzwerklaufwerke \\Server\Freigabe
+        // für Netzwerklaufwerke \\Server\Freigabe
         WinPath = '\\\\' + pathArray[1]
     }
 
@@ -236,8 +239,8 @@ function PathToWinPath(pathArray) {
 }
 
 // =============================================================================
-// Fusszeile setzen, alle Seiten
-function SetFooter(sValue, sDateFormat = "dd.mm.yyyy", sTimeFormat = "HH:MM", iPage = -1) {
+// Fußzeile setzen
+function SetFooter(sValue, sDateFormat = 'dd.mm.yyyy', sTimeFormat = 'HH:MM', iPage = -1) {
     RemoveFooter()
 
     const iPages = this.numPages
@@ -245,34 +248,40 @@ function SetFooter(sValue, sDateFormat = "dd.mm.yyyy", sTimeFormat = "HH:MM", iP
     var aRect
     var TotWidth
 
-    if ( iPage === -1) {
+    // alle Seiten
+    if (iPage === -1) {
         for (var p = 0; p < iPages; p++) {
             aRect = this.getPageBox('Crop', p)
             TotWidth = aRect[2] - aRect[0]
 
-            addTextField(this, sText.replace(/%Page%/g, String(p + 1) ) , p, TotWidth)
+            addTextField(this, sText.replace(/%Page%/g, String(p + 1)), p, TotWidth)
         } // end for loop
-    } else if ( iPage >= 0) {
-        aRect = this.getPageBox('Crop', iPage-1)
+        // nur angegebene Seite
+    } else if (iPage >= 0) {
+        aRect = this.getPageBox('Crop', iPage - 1)
         TotWidth = aRect[2] - aRect[0]
-        addTextField(this, sText.replace(/%Page%/g, String(iPage-1) ) , iPage-1, TotWidth)
-    }  else if ( iPage === -2)  {
-        aRect = this.getPageBox('Crop', iPages-1)
+        addTextField(this, sText.replace(/%Page%/g, String(iPage - 1)), iPage - 1, TotWidth)
+        // nur letzte Seite
+    } else if (iPage === -2) {
+        aRect = this.getPageBox('Crop', iPages - 1)
         TotWidth = aRect[2] - aRect[0]
-        addTextField(this, sText.replace(/%Page%/g, String(iPages-1) ) , iPages-1, TotWidth)
+        addTextField(this, sText.replace(/%Page%/g, String(iPages - 1)), iPages - 1, TotWidth)
     }
 }
 
 // =============================================================================
-// Textfeld in die Fusszeile einfuegen
+// Textfeld in die Fußzeile einfügen
 function addTextField(myDoc, myTextValue, myPageNum, myPageWidth) {
     try {
         var fd = myDoc.addField('xftDate' + myPageNum + 1, 'text', myPageNum, [30, 15, myPageWidth - 30, 35])
-        fd.multiline = true // Zeilenumbruch erlauben
-        fd.textSize = 6 // Font-Groesse
-        fd.readonly = true // schreibgeschuetzt
+        fd.multiline = true // Zeilenumbruch erlauben, Seitenzahl zweite Zeile
+        fd.textSize = 6 // Font-Größe
+        fd.readonly = true // schreibgeschützt
         fd.alignment = 'center' // Ausrichtung zentriert
-        // fd.fillColor = color.yellow; //Hintergundfarbe fuer das Textfeld
+        // fd.alignment="left"; //Ausrichtung links
+        // fd.alignment="right"; //Ausrichtung rechts
+        // fd.fillColor = color.yellow; //Hintergundfarbe für das Textfeld
+        // fd.rotation = 90;
         fd.textColor = color.red // Textfarbe
         fd.value = myTextValue
         return fd
@@ -295,7 +304,6 @@ function addTextField(myDoc, myTextValue, myPageNum, myPageWidth) {
 // =============================================================================
 // Position
 function MoveTo(sPos, iOffset) {
-
     const iPages = this.numPages
     var fdText
 
@@ -305,73 +313,82 @@ function MoveTo(sPos, iOffset) {
             fdText = this.getField(String('xftDate' + p + 1))
 
             switch (sPos) {
-                default:
-                    // [nLeft, nTop, nRight, nBottom]
-                    fdText.rect = [
-                        30,
-                        14,
-                        aRect[2] - aRect[0] - 30,
-                        35]
-                    // Rotation muss nach der Groessenaenderung ausgefuehrt werden!
-                    fdText.rotation = 0
-                    fdText.multiline = true
-                break;
-                case 'top':
-                    fdText.rect = [
-                        30,
-                        aRect[1] - iOffset,
-                        aRect[2] - aRect[0] - 30,
-                        aRect[1] - 20 - iOffset]
-                    fdText.rotation = 0
-                    fdText.multiline = true
-                break;
-                case 'left':
-                    fdText.rect = [
-                        aRect[0] + iOffset,
-                        aRect[1] - 20,
-                        aRect[0] + iOffset + 20,
-                        aRect[3] + 20]
-                    fdText.rotation = 90
-                    fdText.multiline = false
-                break;
-                case 'right':
-                    fdText.rect = [
-                        aRect[2] - iOffset - 20,
-                        aRect[1] - 20,
-                        aRect[2] - iOffset,
-                        aRect[3] + 20]
-                    fdText.rotation = 90
-                    fdText.multiline = false
+            default:
+                // [nLeft, nTop, nRight, nBottom]
+                fdText.rect = [
+                    30,
+                    14,
+                    aRect[2] - aRect[0] - 30,
+                    35
+                ]
+                // Rotation muss nach der Größenänderung ausgeführt werden!
+                fdText.rotation = 0
+                fdText.multiline = true
+                break
+            case 'top':
+                fdText.rect = [
+                    30,
+                    aRect[1] - iOffset,
+                    aRect[2] - aRect[0] - 30,
+                    aRect[1] - 20 - iOffset
+                ]
+                fdText.rotation = 0
+                fdText.multiline = true
+                break
+            case 'left':
+                fdText.rect = [
+                    aRect[0] + iOffset,
+                    aRect[1] - 20,
+                    aRect[0] + iOffset + 20,
+                    aRect[3] + 20
+                ]
+                fdText.rotation = 90
+                fdText.multiline = false
+                break
+            case 'right':
+                fdText.rect = [
+                    aRect[2] - iOffset - 20,
+                    aRect[1] - 20,
+                    aRect[2] - iOffset,
+                    aRect[3] + 20
+                ]
+                fdText.rotation = 90
+                fdText.multiline = false
             }
         }
     } catch (e) {};
 }
 
-//=============================================================================
+// ´=============================================================================
 function ReplacePlaceHolders(sString, sDateFormat, sTimeFormat, iPages) {
-
     const FileNM = this.documentFileName // nur Dateiname
     const FileNMNoExt = FileNM.substr(0, FileNM.lastIndexOf('.')) // Dateiname ohne Suffix ( .PDF)
     const AcDate = new Date()
     const CrDate = this.creationDate
     const pathArray = this.path.split('/')
-    // var FileNM = this.path //Dateiname mit Pfad plattformunabhaengiges Format
+    // const FileNM = this.path //Dateiname mit Pfad plattformunabhängiges Format
     const sFilePath = PathToWinPath(pathArray) // Pfad im Windows-Format
 
-    var res = sString.replace(/%FileName%/g, FileNM );
-    res = res.replace(/%FileNameNoExt%/g, FileNMNoExt );
-    res = res.replace(/%FullPath%/g, sFilePath );
-    res = res.replace(/%Date%/g, util.printd(sDateFormat, AcDate));
-    res = res.replace(/%Time%/g, util.printd(sTimeFormat, AcDate));
-    res = res.replace(/%CreationDate%/g, util.printd(sDateFormat, CrDate ));
-    res = res.replace(/%CreationTime%/g, util.printd(sTimeFormat, CrDate ));
-    res = res.replace(/%Pages%/g, iPages );
-    res = res.replace(/%t%/g, '\t' );
-    return res.replace(/%n%/g, '\n' );
+    var replacements = {
+        '%FileName%': FileNM,
+        '%FileNameNoExt%': FileNMNoExt,
+        '%FullPath%': sFilePath,
+        '%Date%': util.printd(sDateFormat, AcDate),
+        '%Time%': util.printd(sTimeFormat, AcDate),
+        '%CreationDate%': util.printd(sDateFormat, CrDate),
+        '%CreationTime%': util.printd(sTimeFormat, CrDate),
+        '%Pages%': iPages,
+        '%t%': '\t',
+        '%n%': '\n'
+    }
+
+    return sString.replace(/%\w+%/g, function (all) {
+        return all in replacements ? replacements[all] : all
+    })
 }
 
 // =============================================================================
-// Farbe aendern
+// Farbe ändern
 function ChangeColor(oColor) {
     const iPages = this.numPages
 
@@ -383,8 +400,8 @@ function ChangeColor(oColor) {
 }
 
 // =============================================================================
-// Schriftgroesse
-function ChangeSize(iSize){
+// Schriftgröße
+function ChangeSize(iSize) {
     const iPages = this.numPages
 
     try {
@@ -407,7 +424,7 @@ function ChangeAlign(sAlign) {
 }
 
 // =============================================================================
-// Fusszeile(n) entfernen
+// Fußzeile(n) entfernen
 function RemoveFooter() {
     const iPages = this.numPages
 
