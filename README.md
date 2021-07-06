@@ -43,6 +43,9 @@ Platzhalter:
  <dt>%FullPath%</dt>
  <dd>Dateifad mit Datenamen</dd>
  
+ <dt>%FullPathNP%</dt>
+ <dd>Dateipfad mit Datenamen / Betriebsystem unabhängig</dd>
+ 
  <dt>%Date%</dt>
  <dd>Aktuelles Datum</dd>
  
