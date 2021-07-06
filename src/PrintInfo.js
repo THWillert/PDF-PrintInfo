@@ -2,6 +2,8 @@
  PrintInfo
  V3.0.2, 2021, Thorsten Willert
  * Code Optimierung
+ + höhere Geschwindgkeit
+ + Fortschrittsanzeige
 
  V3.0.1, 2021, Thorsten Willert
  * Code Optimierung
@@ -34,6 +36,8 @@ Platzhalter:
         Dateiname ohne Suffix
     %FullPath%
         Dateifad mit Datenamen
+    %FullPathNP%
+    	Dateipfad mit Datenamen / Betriebsystem unabhängig
     %Date%
         Aktuelles Datum
     %Time%
@@ -222,20 +226,20 @@ app.addMenuItem({
 
 // =============================================================================
 // Pfad in Windows-Pfad umwandeln
-function PathToWinPath(pathArray) {
-    var WinPath
-    if (pathArray[1].length === 1) {
+function PathToWinPath(aPath) {
+    var sWinPath
+    if (aPath[1].length === 1) {
         // nur ein Zeichen? Also (hoffentlich) lokales Laufwerk
-        WinPath = pathArray[1] + ':'
+        sWinPath = aPath[1] + ':'
     } else {
         // für Netzwerklaufwerke \\Server\Freigabe
-        WinPath = '\\\\' + pathArray[1]
+        sWinPath = '\\\\' + aPath[1]
     }
 
-    for (var i = 2; i < pathArray.length; i++) {
-        WinPath = WinPath + '\\' + pathArray[i]
+    for (var i = 2; i < aPath.length; i++) {
+        sWinPath += '\\' + aPath[i]
     }
-    return WinPath
+    return sWinPath
 }
 
 // =============================================================================
@@ -246,26 +250,33 @@ function SetFooter(sValue, sDateFormat = 'dd.mm.yyyy', sTimeFormat = 'HH:MM', iP
     const iPages = this.numPages
     const sText = ReplacePlaceHolders(sValue, sDateFormat, sTimeFormat, iPages)
     var aRect
-    var TotWidth
+    var iTotWidth
 
-    // alle Seiten
-    if (iPage === -1) {
+    var tObj = app.thermometer
+
+    if (iPage === -1) { // alle Seiten
+        tObj.duration = iPages
+        tObj.begin()
+
         for (var p = 0; p < iPages; p++) {
-            aRect = this.getPageBox('Crop', p)
-            TotWidth = aRect[2] - aRect[0]
+            tObj.value = p
+            tObj.text = 'Processing page: ' + p
 
-            addTextField(this, sText.replace(/%Page%/g, String(p + 1)), p, TotWidth)
+            aRect = this.getPageBox('Crop', p)
+            iTotWidth = aRect[2] - aRect[0]
+
+            addTextField(this, sText.replace(/%Page%/g, String(p + 1)), p, iTotWidth)
         } // end for loop
-        // nur angegebene Seite
-    } else if (iPage >= 0) {
+
+        tObj.end()
+    } else if (iPage >= 0) { // nur angegebene Seite
         aRect = this.getPageBox('Crop', iPage - 1)
-        TotWidth = aRect[2] - aRect[0]
-        addTextField(this, sText.replace(/%Page%/g, String(iPage - 1)), iPage - 1, TotWidth)
-        // nur letzte Seite
-    } else if (iPage === -2) {
+        iTotWidth = aRect[2] - aRect[0]
+        addTextField(this, sText.replace(/%Page%/g, String(iPage - 1)), iPage - 1, iTotWidth)
+    } else if (iPage === -2) { // nur letzte Seite
         aRect = this.getPageBox('Crop', iPages - 1)
-        TotWidth = aRect[2] - aRect[0]
-        addTextField(this, sText.replace(/%Page%/g, String(iPages - 1)), iPages - 1, TotWidth)
+        iTotWidth = aRect[2] - aRect[0]
+        addTextField(this, sText.replace(/%Page%/g, String(iPages - 1)), iPages - 1, iTotWidth)
     }
 }
 
@@ -274,26 +285,18 @@ function SetFooter(sValue, sDateFormat = 'dd.mm.yyyy', sTimeFormat = 'HH:MM', iP
 function addTextField(myDoc, myTextValue, myPageNum, myPageWidth) {
     try {
         var fd = myDoc.addField('xftDate' + myPageNum + 1, 'text', myPageNum, [30, 15, myPageWidth - 30, 35])
+        fd.delay = true
         fd.multiline = true // Zeilenumbruch erlauben, Seitenzahl zweite Zeile
         fd.textSize = 6 // Font-Größe
         fd.readonly = true // schreibgeschützt
         fd.alignment = 'center' // Ausrichtung zentriert
-        // fd.alignment="left"; //Ausrichtung links
-        // fd.alignment="right"; //Ausrichtung rechts
         // fd.fillColor = color.yellow; //Hintergundfarbe für das Textfeld
-        // fd.rotation = 90;
+        fd.rotation = 0
         fd.textColor = color.red // Textfarbe
         fd.value = myTextValue
+        fd.delay = false
+
         return fd
-        // Anmerkungen zur Positionierung:
-        // addField: Parameters: cName, cFieldType, nPageNum, oCoords, Returns: object
-        // oCoords: upper-left x , upper-left y, lower-right x, lower-right y
-        // addField erstellt ein Text-Feld am unteren Seitenrand, bestimmt
-        // durch die angegebenen Koordinaten
-        // es hat einen Abstand von 30 Pixeln vom linken Seitenrand und 15 vom unteren Rand
-        // das Feld nimmt die gesamte Breite des Dokuments ein, mit einem Abstand von
-        // 30 Pixeln links und rechts (myPageWidth-30).
-        // Es ist 20 Pixel hoch (35-15)
     } catch (e) {
         for (var i in e) {
             console.println(i + ': ' + e[i])
@@ -311,50 +314,52 @@ function MoveTo(sPos, iOffset) {
         for (var p = 0; p < iPages; p++) {
             const aRect = this.getPageBox('Crop', p)
             fdText = this.getField(String('xftDate' + p + 1))
+            fdText.delay = true
 
             switch (sPos) {
-            default:
-                // [nLeft, nTop, nRight, nBottom]
-                fdText.rect = [
-                    30,
-                    14,
-                    aRect[2] - aRect[0] - 30,
-                    35
-                ]
-                // Rotation muss nach der Größenänderung ausgeführt werden!
-                fdText.rotation = 0
-                fdText.multiline = true
-                break
-            case 'top':
-                fdText.rect = [
-                    30,
-                    aRect[1] - iOffset,
-                    aRect[2] - aRect[0] - 30,
-                    aRect[1] - 20 - iOffset
-                ]
-                fdText.rotation = 0
-                fdText.multiline = true
-                break
-            case 'left':
-                fdText.rect = [
-                    aRect[0] + iOffset,
-                    aRect[1] - 20,
-                    aRect[0] + iOffset + 20,
-                    aRect[3] + 20
-                ]
-                fdText.rotation = 90
-                fdText.multiline = false
-                break
-            case 'right':
-                fdText.rect = [
-                    aRect[2] - iOffset - 20,
-                    aRect[1] - 20,
-                    aRect[2] - iOffset,
-                    aRect[3] + 20
-                ]
-                fdText.rotation = 90
-                fdText.multiline = false
+                default:
+                    // [nLeft, nTop, nRight, nBottom]
+                    fdText.rect = [
+                        30,
+                        14,
+                        aRect[2] - aRect[0] - 30,
+                        35
+                    ]
+                    // Rotation muss nach der Größenänderung ausgeführt werden!
+                    fdText.rotation = 0
+                    fdText.multiline = true
+                    break
+                case 'top':
+                    fdText.rect = [
+                        30,
+                        aRect[1] - iOffset,
+                        aRect[2] - aRect[0] - 30,
+                        aRect[1] - 20 - iOffset
+                    ]
+                    fdText.rotation = 0
+                    fdText.multiline = true
+                    break
+                case 'left':
+                    fdText.rect = [
+                        aRect[0] + iOffset,
+                        aRect[1] - 20,
+                        aRect[0] + iOffset + 20,
+                        aRect[3] + 20
+                    ]
+                    fdText.rotation = 90
+                    fdText.multiline = false
+                    break
+                case 'right':
+                    fdText.rect = [
+                        aRect[2] - iOffset - 20,
+                        aRect[1] - 20,
+                        aRect[2] - iOffset,
+                        aRect[3] + 20
+                    ]
+                    fdText.rotation = 90
+                    fdText.multiline = false
             }
+            fdText.delay = false
         }
     } catch (e) {};
 }
@@ -365,14 +370,15 @@ function ReplacePlaceHolders(sString, sDateFormat, sTimeFormat, iPages) {
     const FileNMNoExt = FileNM.substr(0, FileNM.lastIndexOf('.')) // Dateiname ohne Suffix ( .PDF)
     const AcDate = new Date()
     const CrDate = this.creationDate
-    const pathArray = this.path.split('/')
-    // const FileNM = this.path //Dateiname mit Pfad plattformunabhängiges Format
-    const sFilePath = PathToWinPath(pathArray) // Pfad im Windows-Format
+    const aPath = this.path.split('/')
+    const sFilePathNP = this.path // Dateiname mit Pfad plattformunabhängiges Format
+    const sFilePath = PathToWinPath(aPath) // Pfad im Windows-Format
 
     var replacements = {
         '%FileName%': FileNM,
         '%FileNameNoExt%': FileNMNoExt,
         '%FullPath%': sFilePath,
+        '%FullPathNP%': sFilePathNP,
         '%Date%': util.printd(sDateFormat, AcDate),
         '%Time%': util.printd(sTimeFormat, AcDate),
         '%CreationDate%': util.printd(sDateFormat, CrDate),
@@ -382,45 +388,35 @@ function ReplacePlaceHolders(sString, sDateFormat, sTimeFormat, iPages) {
         '%n%': '\n'
     }
 
-    return sString.replace(/%\w+%/g, function (all) {
+    return sString.replace(/%\w+%/g, function(all) {
         return all in replacements ? replacements[all] : all
     })
 }
 
+//= =============================================================================
+function SetStyle(sType, sValue) {
+    const iPages = this.numPages
+
+    try {
+        for (var p = 0; p < iPages; p++) {
+            this.getField(String('xftDate' + p + 1))[sType] = sValue
+        }
+    } catch (e) {};
+}
 // =============================================================================
 // Farbe ändern
 function ChangeColor(oColor) {
-    const iPages = this.numPages
-
-    try {
-        for (var p = 0; p < iPages; p++) {
-            this.getField(String('xftDate' + p + 1)).textColor = oColor
-        }
-    } catch (e) {};
+    SetStyle('textColor', oColor)
 }
-
 // =============================================================================
 // Schriftgröße
 function ChangeSize(iSize) {
-    const iPages = this.numPages
-
-    try {
-        for (var p = 0; p < iPages; p++) {
-            this.getField(String('xftDate' + p + 1)).textSize = iSize
-        }
-    } catch (e) {};
+    SetStyle('textSize', iSize)
 }
-
 // =============================================================================
 // Ausrichtung
 function ChangeAlign(sAlign) {
-    const iPages = this.numPages
-
-    try {
-        for (var p = 0; p < iPages; p++) {
-            this.getField(String('xftDate' + p + 1)).alignment = sAlign
-        }
-    } catch (e) {};
+    SetStyle('alignment', sAlign)
 }
 
 // =============================================================================
