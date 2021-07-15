@@ -34,14 +34,17 @@ SetFooter("%FileName%"); MoveTo("top",15); ChangeColor([ "RGB", 0,0.7,0 ]); Chan
 
 Platzhalter:
 <dl>
- <dt>%FileName%</dt>
- <dd>Dateiname</dd>
+ <dt>%Author%
+ <dd>Author</dd>
  
  <dt>%Producer%
  <dd>Erstellt mit</dd>
     
  <dt>%Creator%</dt>
  <dd></dd>
+ 
+ <dt>%FileName%</dt>
+ <dd>Dateiname</dd>
  
  <dt>%FileNameNoExt%</dt>
  <dd>Dateiname ohne Suffix</dd>
@@ -83,7 +86,7 @@ Die Reihenfolge entspricht keiner Priorität.
 
  - [ ] Dokumentation
  - [ ] Dialog für die Einstellungen.
- - [ ] Information aufteilen z. B. in Kopf- und Fusszeile
+ - [ ] Information an verschiedenen Stellen positionieren z. B. in Kopf- und Fusszeile
 
  ## Author
  Thorsten Willert
