@@ -37,7 +37,7 @@ Platzhalter:
  <dt>%FileName%</dt>
  <dd>Dateiname</dd>
  
- 	<dt>%Producer%
+ <dt>%Producer%
  <dd>Erstellt mit</dd>
     
  <dt>%Creator%</dt>
