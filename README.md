@@ -25,11 +25,10 @@ Die einzelnen Menüpunkte können am Anfang des Scripts angepaßt werden (siehe 
 Beispiele für *cExec*
 
 ``` JavaScript
-// Dateiname, Datum, Uhrzeit LF Seiten
-SetFooter("%FileNameNoExt% | %Date% %Time%%n%Seite: %Page% / %Pages%")
+AddField( Text , Datums-Format {dd.mm.yyyy], Zeit-Format [HH:MM], Seite [-1 = alle] -2 = letzte Seite)
 
-// Dateiname - oben - grün - groß
-SetFooter("%FileName%"); MoveTo("top",15); ChangeColor([ "RGB", 0,0.7,0 ]); ChangeSize(12)
+// Eine Kombination aus den Befehlen ist in jedem Menüpunkt möglich z. B.:
+AddField("%FileName%"); SetPosition("top",15); ChangeColor([ "RGB", 0,0.7,0 ]); ChangeSize(12)
 ```
 
 Platzhalter:
