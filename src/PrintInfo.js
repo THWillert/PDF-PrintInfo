@@ -1,6 +1,9 @@
 // windows-1252
 /*
  PrintInfo
+ V3.1.0, 2021, Thorsten Willert
+ * Funktionsnamen geändert
+
  V3.0.3, 2021, Thorsten Willert
  + %Producer%
  + %Creator%
@@ -28,7 +31,7 @@
 
 // Menue =======================================================================
 app.addSubMenu({
-    cName: 'Footer',
+    cName: 'Field',
     cUser: 'Fußzeile und Kopfzeilen',
     cParent: 'File',
     nPos: 20
@@ -69,84 +72,84 @@ Platzhalter:
 
     Groß- und Kleinschreibung beachten!
 
-    SetFooter( Text , Datums-Format {dd.mm.yyyy], Zeit-Format [HH:MM], Seite [-1 = alle] -2 = letzte Seite)
+    AddField( Text , Datums-Format {dd.mm.yyyy], Zeit-Format [HH:MM], Seite [-1 = alle] -2 = letzte Seite)
 
     * Eine Kombination aus den Befehlen ist in jedem Menüpunkt möglich z. B.:
-    'SetFooter("%FileName%"); MoveTo("top",15); ChangeColor([ "RGB", 0,0.7,0 ]); ChangeSize(12)'
+    'AddField("%FileName%"); MoveTo("top",15); ChangeColor([ "RGB", 0,0.7,0 ]); ChangeSize(12)'
 */
 
 app.addMenuItem({
     cName: 'Author, Dateiname, Datum, Uhrzeit LF Seiten',
-    cParent: 'Footer',
-    cExec: 'SetFooter("%Author% | %FileNameNoExt% | %Date% %Time%%n%Seite: %Page% / %Pages%")'
+    cParent: 'Field',
+    cExec: 'AddField("%Author% | %FileNameNoExt% | %Date% %Time%%n%Seite: %Page% / %Pages%")'
 })
 app.addMenuItem({
     cName: 'Dateiname, Datum, Uhrzeit, Seiten',
-    cParent: 'Footer',
-    cExec: 'SetFooter("%FileNameNoExt% | %Date% %Time% | Seite: %Page% / %Pages%")'
+    cParent: 'Field',
+    cExec: 'AddField("%FileNameNoExt% | %Date% %Time% | Seite: %Page% / %Pages%")'
 })
 app.addMenuItem({
     cName: 'Dateiname, Erstellungsdatum, Datum, Uhrzeit, Seiten',
-    cParent: 'Footer',
-    cExec: 'SetFooter("%FileNameNoExt% | Erstellt: %CreationDate% %CreationTime% | Datum: %Date% %Time% | Seite: %Page% / %Pages%")'
+    cParent: 'Field',
+    cExec: 'AddField("%FileNameNoExt% | Erstellt: %CreationDate% %CreationTime% | Datum: %Date% %Time% | Seite: %Page% / %Pages%")'
 })
 app.addMenuItem({
     cName: 'Dateiname - oben - grün - groß',
-    cParent: 'Footer',
-    cExec: 'SetFooter("%FileName%"); MoveTo("top",15); ChangeColor([ "RGB", 0,0.7,0 ]); ChangeSize(12)'
+    cParent: 'Field',
+    cExec: 'AddField("%FileName%"); SetPosition("top",15); ChangeColor([ "RGB", 0,0.7,0 ]); ChangeSize(12)'
 })
 app.addMenuItem({
     cName: '1 / n',
-    cParent: 'Footer',
-    cExec: 'SetFooter("%Page% / %Pages%")'
+    cParent: 'Field',
+    cExec: 'AddField("%Page% / %Pages%")'
 })
 app.addMenuItem({
     cName: 'Seite 1 von n',
-    cParent: 'Footer',
-    cExec: 'SetFooter("Seite %Page% von %Pages%")'
+    cParent: 'Field',
+    cExec: 'AddField("Seite %Page% von %Pages%")'
 })
 app.addMenuItem({
     cName: 'Dateipfad und Name, nur erste Seite',
-    cParent: 'Footer',
-    cExec: 'SetFooter("%FullPath%",undefined,undefined, 1)'
+    cParent: 'Field',
+    cExec: 'AddField("%FullPath%",undefined,undefined, 1)'
 })
 app.addMenuItem({
     cName: '_______________________________________________________',
-    cParent: 'Footer',
+    cParent: 'Field',
     cExec: '{}'
 })
 // Menu: Position --------------------------------------------------------------
 app.addSubMenu({
     cName: 'Position',
     cUser: 'Position',
-    cParent: 'Footer',
+    cParent: 'Field',
     nPos: 8
 })
 app.addMenuItem({
     cName: 'Kopfzeile',
     cParent: 'Position',
-    cExec: 'MoveTo("top",15)'
+    cExec: 'SetPosition("top",15)'
 })
 app.addMenuItem({
     cName: 'Fußzeile',
     cParent: 'Position',
-    cExec: 'MoveTo("bottom",0)'
+    cExec: 'SetPosition("bottom",0)'
 })
 app.addMenuItem({
     cName: '90° links',
     cParent: 'Position',
-    cExec: 'MoveTo("left", 40)'
+    cExec: 'SetPosition("left", 40)'
 })
 app.addMenuItem({
     cName: '90° rechts',
     cParent: 'Position',
-    cExec: 'MoveTo("right", 15)'
+    cExec: 'SetPosition("right", 15)'
 })
 // Menu: Text-align ------------------------------------------------------------
 app.addSubMenu({
     cName: 'Align',
     cUser: 'Ausrichtung',
-    cParent: 'Footer',
+    cParent: 'Field',
     nPos: 9
 })
 app.addMenuItem({
@@ -168,7 +171,7 @@ app.addMenuItem({
 app.addSubMenu({
     cName: 'Color',
     cUser: 'Farbe',
-    cParent: 'Footer',
+    cParent: 'Field',
     nPos: 10
 })
 app.addMenuItem({
@@ -206,7 +209,7 @@ app.addMenuItem({
 app.addSubMenu({
     cName: 'Size',
     cUser: 'Schriftgröße',
-    cParent: 'Footer',
+    cParent: 'Field',
     nPos: 11
 })
 app.addMenuItem({
@@ -226,14 +229,14 @@ app.addMenuItem({
 })
 app.addMenuItem({
     cName: '_______________________________________________________',
-    cParent: 'Footer',
+    cParent: 'Field',
     cExec: '{}'
 })
 // Menu: Remove ----------------------------------------------------------------
 app.addMenuItem({
     cName: 'Entfernen',
-    cParent: 'Footer',
-    cExec: 'RemoveFooter()'
+    cParent: 'Field',
+    cExec: 'RemoveField()'
 })
 
 // =============================================================================
@@ -256,8 +259,8 @@ function PathToWinPath(aPath) {
 
 // =============================================================================
 // Fußzeile setzen
-function SetFooter(sValue, sDateFormat = 'dd.mm.yyyy', sTimeFormat = 'HH:MM', iPage = -1) {
-    RemoveFooter()
+function AddField(sValue, sDateFormat = 'dd.mm.yyyy', sTimeFormat = 'HH:MM', iPage = -1) {
+    RemoveField()
 
     const iPages = this.numPages
     const sText = ReplacePlaceHolders(sValue, sDateFormat, sTimeFormat, iPages)
@@ -277,24 +280,24 @@ function SetFooter(sValue, sDateFormat = 'dd.mm.yyyy', sTimeFormat = 'HH:MM', iP
             aRect = this.getPageBox('Crop', p)
             iTotWidth = aRect[2] - aRect[0]
 
-            addTextField(this, sText.replace(/%Page%/g, String(p + 1)), p, iTotWidth)
+            AddTextField(this, sText.replace(/%Page%/g, String(p + 1)), p, iTotWidth)
         } // end for loop
 
         tObj.end()
     } else if (iPage >= 0) { // nur angegebene Seite
         aRect = this.getPageBox('Crop', iPage - 1)
         iTotWidth = aRect[2] - aRect[0]
-        addTextField(this, sText.replace(/%Page%/g, String(iPage - 1)), iPage - 1, iTotWidth)
+        AddTextField(this, sText.replace(/%Page%/g, String(iPage - 1)), iPage - 1, iTotWidth)
     } else if (iPage === -2) { // nur letzte Seite
         aRect = this.getPageBox('Crop', iPages - 1)
         iTotWidth = aRect[2] - aRect[0]
-        addTextField(this, sText.replace(/%Page%/g, String(iPages - 1)), iPages - 1, iTotWidth)
+        AddTextField(this, sText.replace(/%Page%/g, String(iPages - 1)), iPages - 1, iTotWidth)
     }
 }
 
 // =============================================================================
 // Textfeld einfügen
-function addTextField(myDoc, myTextValue, myPageNum, myPageWidth) {
+function AddTextField(myDoc, myTextValue, myPageNum, myPageWidth) {
     try {
         var fd = myDoc.addField('xftDate' + myPageNum + 1, 'text', myPageNum, [30, 15, myPageWidth - 30, 35])
         fd.delay = true
@@ -320,7 +323,7 @@ function addTextField(myDoc, myTextValue, myPageNum, myPageWidth) {
 
 // =============================================================================
 // Position
-function MoveTo(sPos, iOffset) {
+function SetPosition(sPos, iOffset) {
     const iPages = this.numPages
     var fdText
 
@@ -437,8 +440,8 @@ function ChangeAlign(sAlign) {
 }
 
 // =============================================================================
-// Fußzeile(n) entfernen
-function RemoveFooter() {
+// Entfernen
+function RemoveField() {
     const iPages = this.numPages
 
     var tObj = app.thermometer
