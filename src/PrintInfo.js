@@ -1,5 +1,11 @@
+// windows-1252
 /*
  PrintInfo
+ V3.0.3, 2021, Thorsten Willert
+ + %Producer%
+ + %Creator%
+ + Fortschrittsanzeige
+
  V3.0.2, 2021, Thorsten Willert
  * Code Optimierung
  + höhere Geschwindgkeit
@@ -29,6 +35,12 @@ app.addSubMenu({
 })
 /*
 Platzhalter:
+
+	%Author%
+		Author
+	%Producer%
+		Erstellt mit
+    %Creator%
 
     %FileName%
         Dateiname
@@ -64,9 +76,9 @@ Platzhalter:
 */
 
 app.addMenuItem({
-    cName: 'Dateiname, Datum, Uhrzeit LF Seiten',
+    cName: 'Author, Dateiname, Datum, Uhrzeit LF Seiten',
     cParent: 'Footer',
-    cExec: 'SetFooter("%FileNameNoExt% | %Date% %Time%%n%Seite: %Page% / %Pages%")'
+    cExec: 'SetFooter("%Author% | %FileNameNoExt% | %Date% %Time%%n%Seite: %Page% / %Pages%")'
 })
 app.addMenuItem({
     cName: 'Dateiname, Datum, Uhrzeit, Seiten',
@@ -281,11 +293,12 @@ function SetFooter(sValue, sDateFormat = 'dd.mm.yyyy', sTimeFormat = 'HH:MM', iP
 }
 
 // =============================================================================
-// Textfeld in die Fußzeile einfügen
+// Textfeld einfügen
 function addTextField(myDoc, myTextValue, myPageNum, myPageWidth) {
     try {
         var fd = myDoc.addField('xftDate' + myPageNum + 1, 'text', myPageNum, [30, 15, myPageWidth - 30, 35])
         fd.delay = true
+
         fd.multiline = true // Zeilenumbruch erlauben, Seitenzahl zweite Zeile
         fd.textSize = 6 // Font-Größe
         fd.readonly = true // schreibgeschützt
@@ -294,6 +307,7 @@ function addTextField(myDoc, myTextValue, myPageNum, myPageWidth) {
         fd.rotation = 0
         fd.textColor = color.red // Textfarbe
         fd.value = myTextValue
+
         fd.delay = false
 
         return fd
@@ -325,7 +339,7 @@ function MoveTo(sPos, iOffset) {
                         aRect[2] - aRect[0] - 30,
                         35
                     ]
-                    // Rotation muss nach der Größenänderung ausgeführt werden!
+                    // Rotation muß nach der Größenänderung ausgeführt werden!
                     fdText.rotation = 0
                     fdText.multiline = true
                     break
@@ -364,7 +378,7 @@ function MoveTo(sPos, iOffset) {
     } catch (e) {};
 }
 
-// ´=============================================================================
+// =============================================================================
 function ReplacePlaceHolders(sString, sDateFormat, sTimeFormat, iPages) {
     const FileNM = this.documentFileName // nur Dateiname
     const FileNMNoExt = FileNM.substr(0, FileNM.lastIndexOf('.')) // Dateiname ohne Suffix ( .PDF)
@@ -375,6 +389,9 @@ function ReplacePlaceHolders(sString, sDateFormat, sTimeFormat, iPages) {
     const sFilePath = PathToWinPath(aPath) // Pfad im Windows-Format
 
     var replacements = {
+    	'%Author%': this.info.Author,
+    	'%Producer%': this.info.Producer,
+    	'%Creator%': this.info.Creator,
         '%FileName%': FileNM,
         '%FileNameNoExt%': FileNMNoExt,
         '%FullPath%': sFilePath,
@@ -393,7 +410,7 @@ function ReplacePlaceHolders(sString, sDateFormat, sTimeFormat, iPages) {
     })
 }
 
-//= =============================================================================
+// =============================================================================
 function SetStyle(sType, sValue) {
     const iPages = this.numPages
 
@@ -424,7 +441,16 @@ function ChangeAlign(sAlign) {
 function RemoveFooter() {
     const iPages = this.numPages
 
+    var tObj = app.thermometer
+    tObj.duration = iPages
+    tObj.begin()
+
     for (var p = 0; p < iPages; p++) {
+    	 tObj.value = p
+         tObj.text = 'Removing ' + p
+
         this.removeField(String('xftDate' + p + 1))
     }
+
+    tObj.end()
 }
