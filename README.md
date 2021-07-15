@@ -77,6 +77,7 @@ Die Reihenfolge entspricht keiner Priorität.
 
  - [ ] Dokumentation
  - [ ] Dialog für die Einstellungen.
+ - [ ] Information aufteilen z. B. in Kopf- und Fusszeile
 
  ## Author
  Thorsten Willert
