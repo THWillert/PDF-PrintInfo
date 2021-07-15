@@ -37,6 +37,12 @@ Platzhalter:
  <dt>%FileName%</dt>
  <dd>Dateiname</dd>
  
+ 	<dt>%Producer%
+ <dd>Erstellt mit</dd>
+    
+ <dt>%Creator%</dt>
+ <dd></dd>
+ 
  <dt>%FileNameNoExt%</dt>
  <dd>Dateiname ohne Suffix</dd>
  
