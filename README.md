@@ -6,7 +6,7 @@
 
 Script, das das Menü des Adobe Reader erweitert.
 
-![Willert_PDF-PrintInfo](https://user-images.githubusercontent.com/54273574/124302875-08738b00-db62-11eb-83fe-f2219e6158c7.png)
+![Willert_PDF-PrintInfo](https://www.thorsten-willert.de/images/Dokumentenoptimierung/PDF-PrintInfo/Thorsten_H_Willert_-_PDF-PrintInfo_Menue.png)
 
 Fügt Seitenzahlen, Dateinamen usw. auf allen Seiten einer PDF-Datei ein.
 
