@@ -1,20 +1,25 @@
+// :autoIndent=full:collapseFolds=0:deepIndent=false:folding=indent:indentSize=4:maxLineLen=80:mode=javascript:noTabs=false:noWordSep=_:tabSize=4:wordBreakChars=,+-\=<>/?^&*:wrap=none:
 // windows-1252
 /*
  PrintInfo
- V3.1.0, 2021, Thorsten Willert
+ V3.1.1, 07/17/2021
+ + %ModifiedDate% Datum der letzten Änderung
+ + %ModifiedTime% Zeit der letzten Änderung
+
+ V3.1.0, 06/16/2021
  * Funktionsnamen geändert
 
- V3.0.3, 2021, Thorsten Willert
+ V3.0.3, 2021
  + %Producer%
  + %Creator%
  + Fortschrittsanzeige
 
- V3.0.2, 2021, Thorsten Willert
+ V3.0.2, 2021
  * Code Optimierung
  + höhere Geschwindgkeit
  + Fortschrittsanzeige
 
- V3.0.1, 2021, Thorsten Willert
+ V3.0.1, 2021
  * Code Optimierung
  * Fußzeile kann in Kopzeile umgewandelt werden
  * Fußzeile kann gedreht und an die Ränder gesetzt werden
@@ -27,12 +32,19 @@
 
  Basierend auf PrintFooter v2.2 von Thorsten Eggeling;
  https:www.myria.de/computer/599-adobe-reader-dateinamen-auf-jede-seite-drucken
+
+ JavaScript for Acrobat API Reference:
+ https://opensource.adobe.com/dc-acrobat-sdk-docs/acrobatsdk/pdfs/acrobatsdk_jsapiref.pdf
 */
 
 // Menue =======================================================================
+// cName   = Interner Name des Untermenüs
+// cUser   = Sichtbare Beschriftung
+// cParent = Übergeordnetes Menü
+// nPos    = Position im Menü
 app.addSubMenu({
     cName: 'Field',
-    cUser: 'Fußzeile und Kopfzeilen',
+    cUser: 'Fußzeile und Kopfzeile',
     cParent: 'File',
     nPos: 20
 })
@@ -61,12 +73,16 @@ Platzhalter:
         Erstellungsdatum
     %CreationTime%
         Erstellungszeit
+    %ModifiedDate%
+        Datum der letzten Änderung
+    %ModifiedTime%
+        Zeit der letzten Änderung
     %Page%
         Aktuelle Seite
     %Pages%
         Gesamtseitenzahl
     %n%
-        Zeilenumbruch
+        Zeilenumbruch (nur in Kopf und Fußzeile wirksam)
     %t%
         Tab
 
@@ -387,6 +403,7 @@ function ReplacePlaceHolders(sString, sDateFormat, sTimeFormat, iPages) {
     const FileNMNoExt = FileNM.substr(0, FileNM.lastIndexOf('.')) // Dateiname ohne Suffix ( .PDF)
     const AcDate = new Date()
     const CrDate = this.creationDate
+    const ModDate = this.modDate
     const aPath = this.path.split('/')
     const sFilePathNP = this.path // Dateiname mit Pfad plattformunabhängiges Format
     const sFilePath = PathToWinPath(aPath) // Pfad im Windows-Format
@@ -395,15 +412,23 @@ function ReplacePlaceHolders(sString, sDateFormat, sTimeFormat, iPages) {
     	'%Author%': this.info.Author,
     	'%Producer%': this.info.Producer,
     	'%Creator%': this.info.Creator,
+
         '%FileName%': FileNM,
         '%FileNameNoExt%': FileNMNoExt,
         '%FullPath%': sFilePath,
         '%FullPathNP%': sFilePathNP,
+
         '%Date%': util.printd(sDateFormat, AcDate),
         '%Time%': util.printd(sTimeFormat, AcDate),
+
+        '%ModifiedDate%': util.printd(sDateFormat, ModDate),
+        '%ModifiedTime%': util.printd(sTimeFormat, ModDate),
+
         '%CreationDate%': util.printd(sDateFormat, CrDate),
         '%CreationTime%': util.printd(sTimeFormat, CrDate),
+
         '%Pages%': iPages,
+
         '%t%': '\t',
         '%n%': '\n'
     }
