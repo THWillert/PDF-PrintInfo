@@ -66,6 +66,11 @@ Platzhalter:
  <dt>%CreationTime%</dt>
  <dd>Erstellungszeit</dd>
  
+ <dt>%ModifiedDate%</dt>
+ <dd>Datum der letzten Änderung</dd>
+ <dt>%ModifiedTime%</dt>
+ <dd>Zeit der letzten Änderung</dd>
+ 
   <dt>%Page%</dt>
  <dd>Aktuelle Seite</dd>
  
