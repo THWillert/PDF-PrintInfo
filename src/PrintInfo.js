@@ -1,7 +1,11 @@
-// :autoIndent=full:collapseFolds=0:deepIndent=false:folding=indent:indentSize=4:maxLineLen=80:mode=javascript:noTabs=false:noWordSep=_:tabSize=4:wordBreakChars=,+-\=<>/?^&*:wrap=none:
+// :autoIndent=full:collapseFolds=0:deepIndent=false:folding=indent:indentSize=4:maxLineLen=80:mode=javascript:noTabs=false:noWordSep=_:tabSize=4:wordBreakChars=,+-\=<>/?^&*:wrap=none:// :autoIndent=full:collapseFolds=0:deepIndent=false:folding=indent:indentSize=4:maxLineLen=80:mode=javascript:noTabs=false:noWordSep=_:tabSize=4:wordBreakChars=,+-\=<>/?^&*:wrap=none:
 // windows-1252
 /*
  PrintInfo
+
+ V3.1.2, 03/20/2022
+ - Korrektur Menüreihenfolge
+
  V3.1.1, 07/17/2021
  + %ModifiedDate% Datum der letzten Änderung
  + %ModifiedTime% Zeit der letzten Änderung
@@ -76,7 +80,7 @@ Platzhalter:
     %ModifiedDate%
         Datum der letzten Änderung
     %ModifiedTime%
-        Zeit der letzten Änderung
+        Zeit der letzten 'nderung
     %Page%
         Aktuelle Seite
     %Pages%
@@ -103,6 +107,11 @@ app.addMenuItem({
     cName: 'Dateiname, Datum, Uhrzeit, Seiten',
     cParent: 'Field',
     cExec: 'AddField("%FileNameNoExt% | %Date% %Time% | Seite: %Page% / %Pages%")'
+})
+app.addMenuItem({
+    cName: 'Dateiname, Datum, Seiten',
+    cParent: 'Field',
+    cExec: 'AddField("%FileNameNoExt% | %Date% | Seite: %Page% / %Pages%")'
 })
 app.addMenuItem({
     cName: 'Dateiname, Erstellungsdatum, Datum, Uhrzeit, Seiten',
@@ -139,7 +148,7 @@ app.addSubMenu({
     cName: 'Position',
     cUser: 'Position',
     cParent: 'Field',
-    nPos: 8
+    nPos: 10
 })
 app.addMenuItem({
     cName: 'Kopfzeile',
@@ -166,7 +175,7 @@ app.addSubMenu({
     cName: 'Align',
     cUser: 'Ausrichtung',
     cParent: 'Field',
-    nPos: 9
+    nPos: 11
 })
 app.addMenuItem({
     cName: 'Mitte',
@@ -263,7 +272,7 @@ function PathToWinPath(aPath) {
         // nur ein Zeichen? Also (hoffentlich) lokales Laufwerk
         sWinPath = aPath[1] + ':'
     } else {
-        // für Netzwerklaufwerke \\Server\Freigabe
+        // Netzwerklaufwerke \\Server\Freigabe
         sWinPath = '\\\\' + aPath[1]
     }
 
