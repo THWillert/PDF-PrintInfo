@@ -102,7 +102,7 @@ Die Reihenfolge entspricht keiner Priorität.
  Basierend auf PrintFooter v2.2 von Thorsten Eggeling;
  
  
- https:www.myria.de/computer/599-adobe-reader-dateinamen-auf-jede-seite-drucken
+ https://www.myria.de/computer/599-adobe-reader-dateinamen-auf-jede-seite-drucken
 
  ## Lizenz
  Das ganze steht unter der [Apache 2.0](https://github.com/THWillert/PDF-PrintInfo/blob/master/LICENSE) Lizenz.
