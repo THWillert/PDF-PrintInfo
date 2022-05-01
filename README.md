@@ -96,7 +96,7 @@ Die Reihenfolge entspricht keiner Priorität.
  ## Author
  Thorsten Willert
 
- [Homepage](https://www.thorsten-willert.de/)
+ [Homepage](https://www.thorsten-willert.de/optimierung/dokumentenoptimierung/dokumentenoptimierung-pdf-printinfo)
  
  ___
  Basierend auf PrintFooter v2.2 von Thorsten Eggeling;
