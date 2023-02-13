@@ -2,7 +2,6 @@
 
 ## Übersicht
 
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/THWillert/PDF-PrintInfo.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/THWillert/PDF-PrintInfo/alerts/) [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/THWillert/PDF-PrintInfo.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/THWillert/PDF-PrintInfo/context:javascript) 
 [![DeepScan grade](https://deepscan.io/api/teams/16969/projects/20288/branches/549497/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=16969&pid=20288&bid=549497)
 
 Script, das das Menü des Adobe Reader erweitert.
